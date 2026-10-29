@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "name": "Purple_Ξye™'s Plugins",
+  "description": "Plugins for Valenced.",
+  "plugins": {
+    "purpleeyez.darkened.amethyst": {
+      "name": "Darkened Amethyst (AMOLED)",
+      "description": "A dark theme with purple accents.",
+      "author": "Purple_Ξye™ <646535537334812682> (https://github.com/Purple-EyeZ \"GitHub\")",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://purple-eyez.github.io/Valenced-Plugins/pool/purpleeyez.darkened.amethyst@1.0.0.zip",
+          "sha256": "d8497ad0660fba35a3a70be6c78cc2f86f631d38504e01c5f36ccac0c901a1d0",
+          "size": 2567,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1.2.1 <2"
+            },
+            "discord": {
+              "version": "*"
+            },
+            "valenced.api.themes": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    },
+    "purpleeyez.gtavicountdown": {
+      "name": "🇺🇸 GTA VI Countdown",
+      "description": "Counting down until you reach heaven.",
+      "author": "Purple_Ξye™ <646535537334812682> (https://github.com/Purple-EyeZ \"GitHub\")",
+      "icon": "ClockIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://purple-eyez.github.io/Valenced-Plugins/pool/purpleeyez.gtavicountdown@1.0.0.zip",
+          "sha256": "1f9ccca5fa3149a245bce624d4509b81c41a2ce0fc37591fdd22dccc94e6408b",
+          "size": 3115,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": ">=350.4"
+            }
+          }
+        }
+      }
+    }
+  }
+}
