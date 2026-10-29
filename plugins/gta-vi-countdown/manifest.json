@@ -5,7 +5,7 @@
 	"description": "Counting down until you reach heaven.",
 	"author": "Purple_Ξye™ <646535537334812682> (https://github.com/Purple-EyeZ \"GitHub\")",
 	"icon": "ClockIcon",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"dependencies": {
 		"valenced.api": {
 			"version": ">=1 <2"
