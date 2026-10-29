@@ -1,0 +1,20 @@
+{
+	"format": 1,
+	"id": "purpleeyez.gtavicountdown",
+	"name": "🇺🇸 GTA VI Countdown",
+	"description": "Counting down until you reach heaven.",
+	"author": "Purple_Ξye™ <646535537334812682> (https://github.com/Purple-EyeZ \"GitHub\")",
+	"icon": "ClockIcon",
+	"version": "1.0.0",
+	"dependencies": {
+		"valenced.api": {
+			"version": ">=1 <2"
+		},
+		"discord": {
+			"version": ">=350.4"
+		}
+	},
+	"dist": {
+		"script": "index.js"
+	}
+}
