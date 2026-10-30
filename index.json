@@ -13,11 +13,11 @@
       "versions": {
         "1.0.0": {
           "url": "https://purple-eyez.github.io/Valenced-Plugins/pool/purpleeyez.darkened.amethyst@1.0.0.zip",
-          "sha256": "d8497ad0660fba35a3a70be6c78cc2f86f631d38504e01c5f36ccac0c901a1d0",
-          "size": 2567,
+          "sha256": "0fa8a1dfc969e112c9ba7005b8e89fec0de57675cd17b12250a1a200cc6eacaa",
+          "size": 2564,
           "dependencies": {
             "valenced.api": {
-              "version": ">=1.2.1 <2"
+              "version": ">=1 <2"
             },
             "discord": {
               "version": "*"
