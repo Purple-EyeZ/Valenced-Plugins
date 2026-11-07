@@ -1,8 +1,9 @@
 import { lookupModule } from '@valenced/modules/finders'
 import { withProps } from '@valenced/modules/finders/filters'
+import { Fragment, type ComponentType, type ReactNode } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { LOGO_URL } from '../constants'
-import type { ComponentType, ReactNode } from 'react'
+import type { TimeRemaining } from '../utils'
 import type { StyleProp, ViewStyle } from 'react-native'
 
 const Colors = {
@@ -13,7 +14,8 @@ const Colors = {
 }
 
 interface CountdownToastProps {
-	days: number
+	timeRemaining?: TimeRemaining
+	days?: number
 }
 
 interface LinearGradientProps {
@@ -71,16 +73,19 @@ const styles = StyleSheet.create({
 	textContainer: {
 		flexDirection: 'column',
 		justifyContent: 'center',
+		flexShrink: 1,
 	},
 	headerText: {
 		color: Colors.white,
 		fontSize: 12,
 		fontWeight: '500',
 		opacity: 0.8,
+		textAlign: 'center',
 	},
 	countdownRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'center',
 		marginVertical: 4,
 	},
 	daysText: {
@@ -89,11 +94,10 @@ const styles = StyleSheet.create({
 		fontWeight: '900',
 		textShadowColor: 'rgba(255, 0, 255, 0.7)',
 		textShadowRadius: 12,
-		marginRight: 4,
 	},
-	subText: {
+	unitText: {
 		color: Colors.secondary,
-		fontSize: 14,
+		fontSize: 16,
 		fontWeight: 'bold',
 		textShadowColor: 'rgba(0, 213, 255, 0.7)',
 		textShadowRadius: 10,
@@ -101,11 +105,33 @@ const styles = StyleSheet.create({
 	footerText: {
 		color: Colors.lightGray,
 		fontSize: 9,
+		textAlign: 'center',
 	},
 })
 
-export default function CountdownToast({ days }: CountdownToastProps) {
+const getSegments = ({ days, hours, minutes }: TimeRemaining) => {
+	const segments: { value: number | string; unit: string }[] = []
+	if (days > 0) segments.push({ value: days, unit: 'd' })
+	segments.push({ value: hours, unit: 'h' })
+	segments.push({
+		value: days === 0 && hours === 0 && minutes === 0 ? '< 1' : minutes,
+		unit: 'm',
+	})
+	return segments
+}
+
+export default function CountdownToast({
+	timeRemaining,
+	days,
+}: CountdownToastProps) {
 	const Gradient = getLinearGradient()
+
+	const remaining: TimeRemaining = timeRemaining ?? {
+		isReleased: (days ?? 0) <= 0,
+		days: Math.max(0, days ?? 0),
+		hours: 0,
+		minutes: 0,
+	}
 
 	const content = (
 		<View style={styles.container}>
@@ -117,11 +143,28 @@ export default function CountdownToast({ days }: CountdownToastProps) {
 				<Text style={styles.headerText}>GRAND THEFT AUTO VI</Text>
 
 				<View style={styles.countdownRow}>
-					<Text style={styles.daysText}>{days}</Text>
-					<Text style={styles.subText}>DAYS LEFT</Text>
+					{remaining.isReleased ? (
+						<Text style={styles.daysText}>OUT NOW!</Text>
+					) : (
+						<Text style={styles.daysText}>
+							{getSegments(remaining).map(({ value, unit }, index, array) => (
+								<Fragment key={unit}>
+									{value}
+									<Text style={styles.unitText}>
+										{unit}
+										{index < array.length - 1 ? ' ' : ''}
+									</Text>
+								</Fragment>
+							))}
+						</Text>
+					)}
 				</View>
 
-				<Text style={styles.footerText}>Coming 19th Nov 2026</Text>
+				<Text style={styles.footerText}>
+					{remaining.isReleased
+						? 'Released 19th Nov 2026'
+						: 'Coming 19th Nov 2026'}
+				</Text>
 			</View>
 		</View>
 	)

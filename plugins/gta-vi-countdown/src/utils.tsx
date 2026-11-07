@@ -19,10 +19,38 @@ interface ToastUtils {
 const getToastKey = () =>
 	`gta-toast-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 
-const getDaysUntilRelease = () => {
-	const now = new Date()
-	const difference = TARGET_DATE.getTime() - now.getTime()
-	return Math.ceil(difference / (1000 * 60 * 60 * 24))
+export interface TimeRemaining {
+	isReleased: boolean
+	days: number
+	hours: number
+	minutes: number
+}
+
+export const getTimeRemaining = (): TimeRemaining => {
+	const diff = TARGET_DATE.getTime() - Date.now()
+
+	if (diff <= 0) {
+		return { isReleased: true, days: 0, hours: 0, minutes: 0 }
+	}
+
+	const totalSeconds = Math.floor(diff / 1000)
+	const minutes = Math.floor(totalSeconds / 60) % 60
+	const hours = Math.floor(totalSeconds / 3600) % 24
+	const days = Math.floor(totalSeconds / 86400)
+
+	return { isReleased: false, days, hours, minutes }
+}
+
+export const formatCountdown = (time: TimeRemaining): string => {
+	if (time.isReleased) return 'OUT NOW!'
+	if (time.days > 0) {
+		return `${time.days}d ${time.hours}h ${time.minutes}m`
+	}
+	const minStr =
+		time.days === 0 && time.hours === 0 && time.minutes === 0
+			? '< 1m'
+			: `${time.minutes}m`
+	return `${time.hours}h ${minStr}`
 }
 
 export const showCountdownToast = async (
@@ -30,7 +58,7 @@ export const showCountdownToast = async (
 	forceReplace = false,
 ) => {
 	try {
-		const days = getDaysUntilRelease()
+		const timeRemaining = getTimeRemaining()
 		const durationSec =
 			duration ?? (Number(storage?.cache?.displayDuration) || DEFAULT_DURATION)
 
@@ -46,9 +74,13 @@ export const showCountdownToast = async (
 			ToastActionCreators.close?.()
 		}
 
+		const fallbackText = timeRemaining.isReleased
+			? 'GTA VI: Out Now!'
+			: `GTA VI: ${formatCountdown(timeRemaining)} left`
+
 		ToastActionCreators.open(getToastKey(), {
-			content: <CountdownToast days={days} />,
-			text: `GTA VI: ${days} days left`,
+			content: <CountdownToast timeRemaining={timeRemaining} />,
+			text: fallbackText,
 			duration: durationSec * 1000,
 			position: 'top',
 		} as any)
