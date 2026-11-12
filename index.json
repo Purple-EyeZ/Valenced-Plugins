@@ -35,7 +35,7 @@
       "author": "Purple_Ξye™ <646535537334812682> (https://github.com/Purple-EyeZ \"GitHub\")",
       "icon": "ClockIcon",
       "channels": {
-        "latest": "1.1.0"
+        "latest": "1.1.1"
       },
       "versions": {
         "1.0.0": {
@@ -68,6 +68,19 @@
           "url": "https://purple-eyez.github.io/Valenced-Plugins/pool/purpleeyez.gtavicountdown@1.1.0.zip",
           "sha256": "6bde8a9c0e9e5c5f7a2ec0cfca999fc71ab5a882a923839150b2951a5acf8469",
           "size": 3511,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": ">=350.4"
+            }
+          }
+        },
+        "1.1.1": {
+          "url": "https://purple-eyez.github.io/Valenced-Plugins/pool/purpleeyez.gtavicountdown@1.1.1.zip",
+          "sha256": "b3111ac903096e8b0c17f56627f95bb5ee1bbd864ccc62bbf20b539953b4324f",
+          "size": 3532,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
